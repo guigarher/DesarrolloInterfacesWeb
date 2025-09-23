@@ -2,4 +2,30 @@ body{
     color: blue;    
     font-family: 'Courier New', Courier, monospace;
     font-size: large;
+    box-sizing: border-box;
+}
+h1{
+    color: darkblue;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.carta{
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px;
+    background-color: lightgray;
+    box-sizing: border-box;
+    width: 300px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+input{
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    box-sizing: border-box;
 }
