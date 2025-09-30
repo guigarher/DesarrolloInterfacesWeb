@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.item{
+    border: 1px solid black;
+    background-color: rgb(159, 38, 189);
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.first{
+    order: -1;
+    background-color: aliceblue;
+}
+
+
+@media (max-width: 800px) {
+  .container { flex-direction: column;}
+}
