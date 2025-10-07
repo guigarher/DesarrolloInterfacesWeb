@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    display: grid;
+    /*auto-fit  o auto-fill
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); hace que las columnas se ajusten al tamaño del contenedor
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); hace que las columnas se llenen el contenedor aunque sobre espacio 
+    */
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-rows: 100px 100px 100px;
+
+    /*grid-template: 100px 100px 100px / repeat(3, minmax(200px, 1fr)); otra forma de definir filas y columnas
+    */
+    gap: 10px;
+    padding: 10px;
+
+    align-items: start; /*start, end, center, stretch -alinear los items en el eje vertical
+    */
+    justify-items: start; /*start, end, center, stretch -alinear los items en el eje horizontal
+    */
+    /*place-items: start start; es un atajo para alinear en ambos ejes*/
+
+    /*align-content: start; end, center, space-between, space-around, space-evenly, stretch -alinea todo el grid en el eje vertical cuando el grid es más pequeño que el contenedor
+    */
+    /*justify-content: start; end, center, space-between, space-around, space-evenly, stretch -alinea todo el grid en el eje horizontal cuando el grid es más pequeño que el contenedor*/
+    place-content: start start;/* es un atajo para alinear en ambos ejes*/
+}
+.item{
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
