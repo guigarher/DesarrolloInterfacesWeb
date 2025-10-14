@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --default-size: 100px;
+    --default-bgcolor: #4CAF50;
+}
+.container {
+    background-color: wheat;
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 200px 200px;
+    min-height: 600px;
+    place-items: end; /* Alinea todos los elementos al final del contenedor, se diferencia de align-items  y justify-items en que estos solo afectan a un eje */
+    place-content: start; /* Alinea todo el contenido del grid al inicio del contenedor, se diferencia de align-content y justify-content en que estos solo afectan a un eje */
+}
+.item{
+    background: linear-gradient(#4CAF50, transparent) #8BC34A;
+    /*background-color: var(--default-bgcolor);*/
+    width: var(--default-size);
+    height: var(--default-size);
+    color: white;
+    padding: 33px;
+    text-align: center;
+    font-size: 30px;
+    /*transition-delay: 0.4s;  Retrasa la transición */
+    transition: all 0.3s ease-in-out; /* a parte de ease-in-out, existen otros valores como linear, ease, ease-in, ease-out */
+}
+/*
+.custom{
+    place-self: start center;  Alinea un elemento en concreto dentro del grid, se diferencia de align-self y justify-self en que estos solo afectan a un eje 
+}
+*/
+.item:hover{
+    background: linear-gradient(#4CAF50, transparent) #96e146;
+    /*background-color: orange;*/
+    width: calc(var(--default-size) + 20px);
+    height: calc(var(--default-size) + 20px);
+    font-size: 50px;
+    border-radius: 15px;
+    color: #5555bb;
+    transform: translate(100px, 100px) rotate(90deg/*1turn*/) scale(2, 3) skew(20deg, 20deg); /* translate(x,y) mueve el elemento, rotate() lo rota, scale(x,y) lo escala y skew(x,y) lo inclina */
+}

@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    background: black;
+    min-height: 700px;
+    padding: 10px;
+}
+.item{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background: violet;
+    animation: change-color 1s ease-in-out infinite; /*ademas de infinte hay otras opciones como alternate, normal, reverse, etc*/
+    animation: mover 2s ease-in-out infinite;
+    animation-delay: 1s; /*retraso de la animacion*/
+    animation-direction: alternate; /*hace que la animacion se reproduzca de ida y vuelta*/
+    animation-fill-mode: forwards; /*hace que la animacion se quede en el ultimo estado*/
+    animation-play-state: running; /*pausa la animacion con paused*/
+}
+
+@keyframes change-color{
+    from{
+        background: violet;
+    }
+    to{
+        background: orange;
+    }
+}
+@keyframes mover{
+    0%{
+        transform: translateX(0px);
+        background: violet;
+        border-radius: 0px;
+    }
+    50%{
+        transform: translateX(300px);
+        background: orange;
+        border-radius: 50px;
+    }
+    100%{
+        transform: translateX(0px);
+        background: violet;
+        border-radius: 0px;
+    }
+}
