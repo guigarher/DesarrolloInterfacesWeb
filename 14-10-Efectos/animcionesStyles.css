@@ -15,9 +15,11 @@
     background: violet;
     animation: change-color 1s ease-in-out infinite; /*ademas de infinte hay otras opciones como alternate, normal, reverse, etc*/
     animation: mover 2s ease-in-out infinite;
+    animation-iteration-count: infinite; /*numero de veces que se repite la animacion, puede ser un numero o infinite*/
+    animation-timing-function: ease-in-out; /*velocidad de la animacion, existen otras opciones como linear, ease, ease-in, ease-out, cubic-bezier, steps, etc*/
     animation-delay: 1s; /*retraso de la animacion*/
-    animation-direction: alternate; /*hace que la animacion se reproduzca de ida y vuelta*/
-    animation-fill-mode: forwards; /*hace que la animacion se quede en el ultimo estado*/
+    animation-direction: alternate; /*hace que la animacion se reproduzca de ida y vuelta, y existen otras opciones como: normal, reverse, etc*/
+    animation-fill-mode: forwards; /*hace que la animacion se quede en el ultimo estado y existen otras opciones como: backwards, both, none*/
     animation-play-state: running; /*pausa la animacion con paused*/
 }
 
@@ -31,12 +33,12 @@
 }
 @keyframes mover{
     0%{
-        transform: translateX(0px);
+        transform: translateX(0px); /*translateX mueve el elemento en el eje X, translateY en el eje Y y translateZ en el eje Z, tambien existe translate3d para mover en los tres ejes, y otras funciones como rotate, scale, skew, matrix, etc*/
         background: violet;
         border-radius: 0px;
     }
     50%{
-        transform: translateX(300px);
+        transform: translateX(300px) rotate(2turn);
         background: orange;
         border-radius: 50px;
     }

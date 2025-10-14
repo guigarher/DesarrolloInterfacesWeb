@@ -1,0 +1,14 @@
+img{
+    width: 100px;
+    height: 100px;
+    animation: girar 2s ease-in-out alternate infinite;
+}
+
+@keyframes girar{
+    from{
+        transform: translate3d(0px, 0px, 0) rotate(0deg) ;
+    }
+    to{
+        transform: translate3d(500px, 0px, 0)rotate(10turn); ;
+    }
+}
