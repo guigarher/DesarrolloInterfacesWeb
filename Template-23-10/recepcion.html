@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Smart-Economato · Recepción</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Smart-Economato</h1>
+    <h2>RECEPCIÓN</h2>
+  </header>
+
+  <aside class="aside">
+    <!-- Usuario activo -->
+    <section class="user-card">
+        <div class="user-card__title">Usuario activo</div>
+
+        <div class="user-card__row">
+            <div class="user-card__name" id="activeUser">Invitado</div>
+            <button type="button" class="btn-logout" id="btnLogout" title="Cerrar sesión">Salir</button>
+        </div>
+    </section>
+
+
+    <!-- Navegación tipo “select” (misma que en index) -->
+    <nav class="smart-nav" aria-label="Navegación Smart-Economato">
+      <details class="smart-nav__dropdown">
+        <summary class="smart-nav__summary" aria-haspopup="listbox">
+          Ir a…
+        </summary>
+        <ul class="smart-nav__list" role="listbox" aria-label="Secciones">
+          <li role="option"><a href="index.html">Menú principal</a></li>
+          <li role="option"><a href="recepcion.html" aria-current="page">Recepción de pedidos</a></li>
+          <li role="option"><a href="pedidos-profesores.html">Pedidos de profesores</a></li>
+          <li role="option"><a href="resumen.html">Resumen de pedidos</a></li>
+          <li role="option"><a href="alta-producto.html">Alta de productos</a></li>
+          <li role="option"><a href="baja-producto.html">Baja de productos</a></li>
+          <li role="option"><a href="inventario.html">Inventario</a></li>
+        </ul>
+      </details>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <section class="section">
+      <h2>Registrar recepción</h2>
+
+      <form id="formRecepcion" class="card form-grid" action="#" method="post" autocomplete="off">
+        <!-- Cabecera del albarán -->
+        <fieldset class="grid-2">
+          <legend>Datos del albarán</legend>
+
+          <label class="form-field">
+            <span>Nº Albarán</span>
+            <input type="text" name="num_albaran" placeholder="ALB-2025-0001" required>
+          </label>
+
+          <label class="form-field">
+            <span>Fecha</span>
+            <input type="date" name="fecha" required>
+          </label>
+
+          <label class="form-field">
+            <span>Proveedor</span>
+            <input list="proveedores" name="proveedor" placeholder="Selecciona o escribe" required>
+            <datalist id="proveedores">
+              <option value="Distribuciones Atlántico">
+              <option value="Cash Almacenes Tenerife">
+              <option value="Makro">
+              <option value="Suministros Canarias">
+            </datalist>
+          </label>
+
+          <label class="form-field">
+            <span>Observaciones</span>
+            <input type="text" name="obs" placeholder="Notas (opcional)">
+          </label>
+        </fieldset>
+
+        <!-- Línea rápida para lector de códigos -->
+        <fieldset class="grid-3">
+          <legend>Añadir líneas (escaneo rápido)</legend>
+
+          <label class="form-field">
+            <span>Código de barras</span>
+            <input type="text" id="inBarcode" inputmode="numeric" pattern="[0-9]{6,14}" placeholder="Escanea o escribe">
+          </label>
+
+          <label class="form-field">
+            <span>Cantidad</span>
+            <input type="number" id="inQty" min="1" step="1" value="1">
+          </label>
+
+          <div class="form-actions">
+            <button type="button" id="btnAddLine">Añadir (Enter)</button>
+          </div>
+
+          <label class="form-field">
+            <span>Nombre producto</span>
+            <input type="text" id="inName" list="productos" placeholder="Se autorrellena si existe">
+            <datalist id="productos"></datalist>
+          </label>
+
+          <label class="form-field">
+            <span>PVP (€)</span>
+            <input type="number" id="inPrice" step="0.01" placeholder="0.00">
+          </label>
+
+          <label class="form-field">
+            <span>Lote / Caducidad</span>
+            <input type="text" id="inLot" placeholder="LOTE-XYZ / 2026-06-01">
+          </label>
+        </fieldset>
+
+        <!-- Tabla de líneas -->
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>PVP (€)</th>
+                <th>Lote/Cad.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="linesBody">
+              <!-- filas dinámicas -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Acciones finales -->
+        <div class="form-actions end">
+          <button type="button" id="btnGuardar">Guardar (simulado)</button>
+          <button type="reset" id="btnReset">Vaciar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Smart-Economato</p>
+  </footer>
+
+  <script>
+    // ==== Usuario activo (URL o sessionStorage) ====
+    (function initUserAndNav() {
+    // 1) Pintar usuario activo (por URL o sessionStorage)
+    const params = new URLSearchParams(location.search);
+    const fromUrl = params.get("username");
+    const fromSS  = sessionStorage.getItem("usuario");
+    const user = fromUrl || fromSS;
+    const activeEl = document.getElementById("activeUser");
+    if (activeEl) activeEl.textContent = user || "Invitado";
+    if (fromUrl) sessionStorage.setItem("usuario", fromUrl);
+
+    // 2) Botón Salir: limpia sesión y vuelve al login
+    document.getElementById("btnLogout")?.addEventListener("click", () => {
+      sessionStorage.removeItem("usuario");
+      // Opcional: limpiar querystring si estuvieras en login de vuelta
+      location.href = "login.html";
+    });
+
+    // 3) Ocultar en el desplegable la página actual
+    // Normalizamos el "archivo actual": "" (raíz) -> "index.html"
+    const current = (() => {
+      let p = location.pathname.split("/").pop();
+      if (!p || p === "/") p = "index.html";
+      return p.toLowerCase();
+    })();
+
+    // Recorre todos los enlaces del nav y oculta el que coincide
+    document.querySelectorAll('.smart-nav__list a[href]').forEach(a => {
+      const url = new URL(a.href);
+      let file = url.pathname.split("/").pop().toLowerCase();
+      if (!file || file === "/") file = "index.html";
+      if (file === current) {
+        // Marcar actual (accesibilidad) y ocultar visualmente su opción
+        a.setAttribute("aria-current", "page");
+        const li = a.closest("li");
+        if (li) li.style.display = "none";
+      } else {
+        // Propaga el usuario en los enlaces si existe (opcional)
+        if (user) {
+          url.searchParams.set("username", user);
+          a.href = url.toString();
+        }
+      }
+    });
+  })();
+
+    // ==== Catálogo simulado para autorrelleno ====
+    const catalog = {
+      "8410076470150": { name: "Agua 1,5L",        price: 0.45 },
+      "8412345678901": { name: "Azúcar 1kg",       price: 1.19 },
+      "8423456789012": { name: "Café molido 250g", price: 3.75 }
+    };
+
+    const productosList = document.getElementById("productos");
+    Object.entries(catalog).forEach(([code, item]) => {
+      const opt = document.createElement("option");
+      opt.value = item.name;
+      opt.setAttribute("data-code", code);
+      productosList.appendChild(opt);
+    });
+
+    // ==== Controles ====
+    const inBarcode = document.getElementById("inBarcode");
+    const inQty     = document.getElementById("inQty");
+    const inName    = document.getElementById("inName");
+    const inPrice   = document.getElementById("inPrice");
+    const inLot     = document.getElementById("inLot");
+    const body      = document.getElementById("linesBody");
+
+    // Autorrelleno por código
+    inBarcode.addEventListener("input", () => {
+      const code = inBarcode.value.trim();
+      const item = catalog[code];
+      if (item) {
+        inName.value  = item.name;
+        inPrice.value = item.price.toFixed(2);
+      }
+    });
+
+    // Enter para añadir línea
+    [inBarcode, inQty, inName, inPrice, inLot].forEach(el => {
+      el.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          ev.preventDefault();
+          addLine();
+        }
+      });
+    });
+    document.getElementById("btnAddLine").addEventListener("click", addLine);
+
+    function addLine() {
+      const code = inBarcode.value.trim();
+      const qty  = parseInt(inQty.value, 10) || 0;
+      const name = inName.value.trim();
+      const price= parseFloat(inPrice.value) || 0;
+      const lot  = inLot.value.trim();
+
+      if (!code || qty <= 0) {
+        alert("Introduce un código válido y una cantidad mayor que 0.");
+        inBarcode.focus();
+        return;
+      }
+
+      const finalName = name || (catalog[code]?.name ?? `Producto ${code}`);
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${code}</td>
+        <td>${finalName}</td>
+        <td class="num">${qty}</td>
+        <td class="num">${price.toFixed(2)}</td>
+        <td>${lot}</td>
+        <td><button type="button" class="link danger" aria-label="Eliminar línea">Eliminar</button></td>
+      `;
+      tr.querySelector("button").addEventListener("click", () => tr.remove());
+      body.appendChild(tr);
+
+      // limpiar para siguiente lectura
+      inBarcode.value = "";
+      inQty.value = "1";
+      inName.value = "";
+      inPrice.value = "";
+      inLot.value = "";
+      inBarcode.focus();
+    }
+
+    // Guardado simulado
+    document.getElementById("btnGuardar").addEventListener("click", () => {
+      const rows = [...body.querySelectorAll("tr")].map(tr => {
+        const t = tr.querySelectorAll("td");
+        return {
+          code:  t[0].textContent,
+          name:  t[1].textContent,
+          qty:   Number(t[2].textContent),
+          price: Number(t[3].textContent),
+          lot:   t[4].textContent
+        };
+      });
+      if (!rows.length) return alert("No hay líneas para guardar.");
+      console.table(rows);
+      alert("Guardado simulado en consola. Cuando tengas backend, manda estos datos vía fetch().");
+    });
+
+    // Reset: limpia tabla
+    document.getElementById("btnReset").addEventListener("click", () => {
+      body.innerHTML = "";
+      inBarcode.focus();
+    });
+  </script>
+</body>
+</html>

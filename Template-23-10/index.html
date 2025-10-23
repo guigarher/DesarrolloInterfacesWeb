@@ -1,34 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart-Economato</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Smart-Economato · Menú</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class="header">
-        <h1> Inicio Smart-Economato</h1>
-        <nav class="nav">
-            <ul>
-                <li><a href="#">Pedido</a></li>
-                <li><a href="#">Recepción</a></li>
-                <li><a href="#">Bajas</a></li>
-            </ul>
-    </header>
-    <aside class="aside">
-            <h3>Noticias Recientes</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente neque nam architecto ipsum aperiam perspiciatis? Sequi deleniti quidem magnam facere saepe voluptatibus sunt dolorum assumenda eaque quasi amet, quae eveniet?.</p>
-    </aside>
-    <main class="main">
-        <section class="section">
-            <h2>Utilidad de el Smart-Economato</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima voluptate perferendis fugit. Praesentium a eos reiciendis adipisci quidem? Quibusdam, alias. Sequi quis necessitatibus minima omnis. Itaque numquam nulla optio unde!</p>
-        </section>
-    </main>
-    
-    <footer class="footer">
-        <p>&copy; 2025 Smart-Economato</p>
-    </footer>
+  <header class="header">
+    <h1>Smart-Economato</h1>
+    <h2>MENÚ</h2>
+  </header>
+
+  <aside class="aside">
+    <section class="user-card">
+        <div class="user-card__title">Usuario activo</div>
+
+        <div class="user-card__row">
+            <div class="user-card__name" id="activeUser">Invitado</div>
+            <button type="button" class="btn-logout" id="btnLogout" title="Cerrar sesión">Salir</button>
+        </div>
+    </section>
+  </aside>
+
+  <main class="main main--center">
+    <section class="section">
+      <h2 id="welcome"></h2>
+
+      <!-- Navegación centrada en el MAIN -->
+      <nav class="smart-nav" aria-label="Navegación Smart-Economato">
+        <details class="smart-nav__dropdown">
+          <summary class="smart-nav__summary" aria-haspopup="listbox">
+            Ir a…
+          </summary>
+          <ul class="smart-nav__list" role="listbox" aria-label="Secciones">
+            <li role="option"><a href="index.html" aria-current="page">Menú principal</a></li>
+            <li role="option"><a href="recepcion.html">Recepción de pedidos</a></li>
+            <li role="option"><a href="pedidos-profesores.html">Pedidos de profesores</a></li>
+            <li role="option"><a href="resumen.html">Resumen de pedidos</a></li>
+            <li role="option"><a href="alta-producto.html">Alta de productos</a></li>
+            <li role="option"><a href="baja-producto.html">Baja de productos</a></li>
+            <li role="option"><a href="inventario.html">Inventario</a></li>
+          </ul>
+        </details>
+      </nav>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Smart-Economato</p>
+  </footer>
+  <script>
+    (function initUserAndNav() {
+        // 1) Pintar usuario activo (por URL o sessionStorage)
+        const params = new URLSearchParams(location.search);
+        const fromUrl = params.get("username");
+        const fromSS  = sessionStorage.getItem("usuario");
+        const user = fromUrl || fromSS;
+        const activeEl = document.getElementById("activeUser");
+        if (activeEl) activeEl.textContent = user || "Invitado";
+        if (fromUrl) sessionStorage.setItem("usuario", fromUrl);
+
+        // 2) Botón Salir: limpia sesión y vuelve al login
+        document.getElementById("btnLogout")?.addEventListener("click", () => {
+        sessionStorage.removeItem("usuario");
+        // Opcional: limpiar querystring si estuvieras en login de vuelta
+        location.href = "login.html";
+        });
+
+        // 3) Ocultar en el desplegable la página actual
+        // Normalizamos el "archivo actual": "" (raíz) -> "index.html"
+        const current = (() => {
+        let p = location.pathname.split("/").pop();
+        if (!p || p === "/") p = "index.html";
+        return p.toLowerCase();
+        })();
+
+        // Recorre todos los enlaces del nav y oculta el que coincide
+        document.querySelectorAll('.smart-nav__list a[href]').forEach(a => {
+        const url = new URL(a.href);
+        let file = url.pathname.split("/").pop().toLowerCase();
+        if (!file || file === "/") file = "index.html";
+        if (file === current) {
+            // Marcar actual (accesibilidad) y ocultar visualmente su opción
+            a.setAttribute("aria-current", "page");
+            const li = a.closest("li");
+            if (li) li.style.display = "none";
+        } else {
+            // Propaga el usuario en los enlaces si existe (opcional)
+            if (user) {
+            url.searchParams.set("username", user);
+            a.href = url.toString();
+            }
+        }
+        });
+    })();
+    </script>
 </body>
 </html>

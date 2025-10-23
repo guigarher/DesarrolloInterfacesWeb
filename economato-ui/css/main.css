@@ -1,0 +1,87 @@
+/* ========== Variables y resets básicos ==========
+body {
+margin: 0;
+font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+background: radial-gradient(1200px 700px at 70% -10%, #24324d 0%, #101728 50%, #0b0f19 100%);
+color: var(--text);
+}
+img { max-width: 100%; display: block; }
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+
+/* ========== Header y Footer comunes ========== */
+.site-header {
+position: sticky; top: 0; z-index: 50;
+background: rgba(18, 24, 41, .8);
+backdrop-filter: blur(6px);
+border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.header__inner {
+max-width: 1100px; margin: 0 auto; padding: 14px 20px;
+display: flex; align-items: center; gap: 18px; justify-content: space-between;
+}
+.brand {
+display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px;
+}
+.brand__logo {
+width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2));
+box-shadow: var(--shadow);
+}
+.nav {
+display: flex; gap: 18px; align-items: center;
+}
+.nav a { color: var(--text); opacity: .9; }
+.nav a.active { color: var(--brand); }
+
+
+.site-footer {
+margin-top: 40px; border-top: 1px solid rgba(255,255,255,.08);
+background: linear-gradient(180deg, rgba(18,24,41,.7), rgba(18,24,41,1));
+}
+.footer__inner { max-width: 1100px; margin: 0 auto; padding: 24px 20px; color: var(--muted); font-size: 14px; }
+.footer__links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer__links a { color: var(--muted); }
+.footer__links a:hover { color: var(--text); }
+
+
+/* ========== Contenedores utilitarios ========== */
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.center-page { min-height: calc(100dvh - 140px); display: grid; place-items: center; padding: 32px 20px; }
+
+
+/* ========== Card de Login ========== */
+.card {
+width: 100%; max-width: 420px; background: linear-gradient(180deg, var(--surface), var(--surface-2));
+border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.card__header { padding: 22px 22px 0; }
+.card__title { margin: 0 0 4px; font-size: clamp(20px, 3vw, 26px); }
+.card__subtitle { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+.card__body { padding: 0 22px 22px; }
+
+
+.form { display: grid; gap: 14px; }
+.form__row { display: grid; gap: 8px; }
+.label { font-size: 14px; color: var(--muted); }
+.input {
+width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.08);
+background: #0e1425; color: var(--text); outline: none; transition: border-color .2s;
+}
+.input:focus { border-color: var(--brand); }
+
+
+.actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.btn { cursor: pointer; border: 0; border-radius: 12px; padding: 12px 16px; font-weight: 600; }
+.btn--brand { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #081018; }
+.btn--ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,.12); }
+
+
+.note { color: var(--muted); font-size: 13px; margin-top: 10px; }
+.error { color: var(--danger); font-size: 13px; min-height: 18px; }
+
+
+/* Responsive menudito */
+@media (max-width: 640px) {
+.nav { display: none; }
+}
