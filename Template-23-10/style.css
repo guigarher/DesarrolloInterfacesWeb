@@ -63,7 +63,10 @@ body {
   background: linear-gradient(90deg, var(--primary-700), var(--primary-600), var(--primary-700));
   color: #fff;
 }
-
+.logo{
+  max-height: 50px;
+  width: auto;
+}
 /* Aside */
 .aside {
   grid-area: aside;
@@ -430,5 +433,15 @@ form.login-form button { align-self: center; }
   .aside > * {
     width: 100%;
     max-width: none;
+  }
+
+  .header{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .logo{
+    max-height: 40px;
   }
 }
