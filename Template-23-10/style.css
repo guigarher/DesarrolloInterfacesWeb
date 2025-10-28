@@ -17,9 +17,9 @@ h2 { margin: 15px; text-align: center; }
   --bg: #eef0f5;                 /* fondo general suave */
   --surface: #ffffff;            /* tarjetas/aside/form */
   --surface-2: #eef2ff;          /* sutil para listas */
-  --primary-700: #4338ca;        /* morado intenso */
-  --primary-600: #4f46e5;        /* morado vivo */
-  --primary-500: #6366f1;        /* morado medio */
+  --primary-700: #f9956b;        /* morado intenso */
+  --primary-600: #ee6944;        /* morado vivo */
+  --primary-500: #efb9a3;        /* morado medio */
   --ring: rgba(79,70,229,.18);   /* foco */
   --text: #111827;               /* casi negro */
   --muted: #6b7280;              /* gris texto suave */
