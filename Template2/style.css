@@ -168,6 +168,27 @@ li:hover{
     cursor: pointer;
     background: var(--background2);
 }
+/*recepcion.html*/
+#form-recepcion{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#form-recepcion legend{
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: var(--main-color);
+}
+
+.form-field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px;
+}
+.form-field input{
+    width: 250px;
+}
 
 @media (max-width: 600px) {
     header{

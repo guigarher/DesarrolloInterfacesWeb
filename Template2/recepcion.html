@@ -10,7 +10,7 @@
     <header>
         <h1>Smart-Economato</h1>
         <img src="LOGO CIFP VIRGEN DE CANDELARIA.png" alt="logo virgen de candelaria">
-        <h2>Menú</h2>
+        <h2>Recepción</h2>
     </header>
     <aside>
         <div class="user">
@@ -33,7 +33,42 @@
         </nav>
     </aside>
     <main>
-        
+       <form id="form-recepcion">
+            <fieldset>
+                <legend>Albarán</legend>
+                <label class="form-field">
+                    <span>Nº Albarán</span>
+                    <input type="text" required>
+                </label>
+                <label class="form-field">
+                    <span>Fecha</span>
+                    <input type="date" required>
+                </label>
+                <label class="form-field">
+                    <span>Proveedor</span>
+                    <input type="text" required>
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Productos</legend>
+                <label class="form-field">
+                    <span>Código de barras</span>
+                    <input type="text" required>
+                </label>
+                <label class="form-field">
+                    <span>Cantidad (kg/L/ud)</span>
+                    <input type="number" required>
+                </label>
+                <label class="form-field">
+                    <span>Nombre Producto</span>
+                    <input type="text" required>
+                </label>
+                <label class="form-field">
+                    <span>PVP (€)</span>
+                    <input type="number" required>
+                </label>
+            </fieldset>
+       </form> 
     </main>
     <footer>
         <p>© 2025 Smart-Economato. Todos los derechos reservados.</p>
